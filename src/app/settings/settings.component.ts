@@ -14,10 +14,23 @@ import { MatInputModule } from '@angular/material/input';
   styleUrl: './settings.component.scss'
 })
 export class SettingsComponent {
+  hide = signal(true);
   private fb = inject(FormBuilder);
 
   authForm: FormGroup = new FormGroup({
     clientId: new FormControl<string>('', [Validators.required]),
     clientSecret: new FormControl<string>('', [Validators.required])
   });
+
+  onAuthSubmit() {
+    if (this.authForm.valid) {
+      console.error('Form submitted', this.authForm.value);
+      throw new Error('Method not implemented: TODO');
+    }
+  }
+
+  clickEvent(event: MouseEvent) {
+    this.hide.set(!this.hide());
+    event.stopPropagation();
+  }
 }

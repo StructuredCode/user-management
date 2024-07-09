@@ -1,1 +1,38 @@
-<p>settings works!</p>
+<form [formGroup]="authForm" (ngSubmit)="onAuthSubmit()">
+  <mat-card>
+    <mat-card-title>API Authorization</mat-card-title>
+    <mat-card-content>
+      <mat-form-field appearance="fill">
+        <mat-label>Client ID</mat-label>
+        <input matInput formControlName="clientId" />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Client Secret</mat-label>
+        <input
+          matInput
+          formControlName="clientSecret"
+          [type]="hide() ? 'password' : 'text'"
+        />
+        <button
+          mat-icon-button
+          matSuffix
+          (click)="clickEvent($event)"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide()"
+        >
+          <mat-icon>{{ hide() ? "visibility_off" : "visibility" }}</mat-icon>
+        </button>
+      </mat-form-field>
+      <p>
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="!authForm.valid"
+        >
+          Submit
+        </button>
+      </p>
+    </mat-card-content>
+  </mat-card>
+</form>
