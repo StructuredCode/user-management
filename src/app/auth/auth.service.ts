@@ -1,15 +1,26 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { Observable, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Config } from '../../../config';
+import { JwtHelperService } from '@auth0/angular-jwt'
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  private readonly http = inject(HttpClient);
+  public jwtHelper: JwtHelperService = new JwtHelperService();
 
   constructor() { }
-  private readonly http = inject(HttpClient);
+
+  /**
+   * Valite auth token.
+   * @returns True when token is valid.
+   */
+  isAuthenticated(): boolean {
+    const token = this.getAuthToken();
+    return !this.jwtHelper.isTokenExpired(token);
+  }
 
   /**
    * Requests an authorization token using the provided user credentials.
