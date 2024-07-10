@@ -5,6 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { AuthService } from '../shared/auth.service';
 
 @Component({
   selector: 'app-settings',
@@ -15,7 +16,7 @@ import { MatInputModule } from '@angular/material/input';
 })
 export class SettingsComponent {
   hide = signal(true);
-  private fb = inject(FormBuilder);
+  private auth = inject(AuthService);
 
   authForm: FormGroup = new FormGroup({
     clientId: new FormControl<string>('', [Validators.required]),
@@ -24,8 +25,10 @@ export class SettingsComponent {
 
   onAuthSubmit() {
     if (this.authForm.valid) {
-      console.error('Form submitted', this.authForm.value);
-      throw new Error('Method not implemented: TODO');
+      const formVal = this.authForm.value;
+      
+      // Requests a token from the server and saves it to local storage.
+      this.auth.handleTokenRequest(formVal.clientId, formVal.clientSecret);
     }
   }
 
