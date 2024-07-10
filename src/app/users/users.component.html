@@ -2,13 +2,13 @@
   <mat-label>Filter</mat-label>
   <input matInput (keyup)="applyFilter($event)" placeholder="FirstName / LastName" #input />
 </mat-form-field>
-<button mat-button-stroked (click)="openUserDialog()">Add user</button>
+<button mat-button-stroked (click)="openDialog()">Add user</button>
 <div class="mat-elevation-z8">
   <table mat-table [dataSource]="dataSource">
     <ng-container matColumnDef="Action">
       <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
       <mat-cell *matCellDef="let element">
-        <button mat-menu-item (click)="openAbscenceDialog(element)">Add abscence</button>
+        <button mat-menu-item (click)="openDialog(element)">Add absence</button>
       </mat-cell>
     </ng-container>
 

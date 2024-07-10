@@ -1,0 +1,39 @@
+<form [formGroup]="absenceForm" (ngSubmit)="onSubmit()" class="dialog-form">
+  <mat-dialog-content class="mat-typography">
+    <h3>Add absence</h3>
+    <mat-form-field>
+      <mat-label>Absence Type</mat-label>
+      <mat-select formControlName="absenceDefinitionId">
+        @for (definition of definitions; track definition) {
+        <mat-option [value]="definition.Id">{{ definition.Name }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="dialog-full-width">
+      <mat-label>PartialTimeFrom</mat-label>
+      <input
+        matInput
+        matNativeControl
+        type="datetime-local"
+        formControlName="partialTimeFrom"
+      />
+    </mat-form-field>
+
+    <mat-form-field class="dialog-full-width">
+      <mat-label>PartialTimeTo</mat-label>
+      <input
+        matInput
+        matNativeControl
+        [value]="this.now"
+        type="datetime-local"
+        formControlName="partialTimeTo"
+      />
+    </mat-form-field>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button type="submit" [disabled]="!absenceForm.valid">Add</button>
+    <button mat-button [mat-dialog-close]="true">Cancel</button>
+  </mat-dialog-actions>
+</form>

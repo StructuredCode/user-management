@@ -9,6 +9,8 @@ import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dial
 import { DialogAddUserComponent } from './dialog-add-user/dialog-add-user.component';
 import { MatIconModule } from '@angular/material/icon';
 import { Subscription } from 'rxjs'
+import { DialogAddAbsenceComponent } from './dialog-add-abscense/dialog-add-absence.component';
+import { ComponentType } from '@angular/cdk/portal';
 
 @Component({
   selector: 'app-users',
@@ -23,6 +25,7 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   private userList: User[] = [];
   subscriptions = new Subscription();
+  dialogComponent = {DialogAddUserComponent}
   dataSource: MatTableDataSource<User> = new MatTableDataSource();
   displayedColumns: string[] = ['Id', 'FirstName', 'LastName', 'Email', 'Action'];
 
@@ -46,12 +49,13 @@ export class UsersComponent implements OnInit, OnDestroy {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  openUserDialog() {
-    const dialogRef = this.dialog.open(DialogAddUserComponent);
-  }
-
-  openAbscenceDialog(element: any) {
-
+  /**
+   * Opens type of dialog based on provided parameter.
+   */
+  openDialog(element?: any) {
+    const comopnentType = element ? DialogAddAbsenceComponent : DialogAddUserComponent;
+    const dialogRef = this.dialog.open(comopnentType as ComponentType<any>);
+    dialogRef.componentInstance.user = element;
   }
 
   ngOnDestroy(): void {

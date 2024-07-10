@@ -14,7 +14,7 @@ import { User } from '../../models/user';
   standalone: true,
   imports: [MatFormFieldModule, MatInputModule, MatIconModule, FormsModule, ReactiveFormsModule, MatCardModule, MatButtonModule, MatDialogModule],
   templateUrl: './dialog-add-user.component.html',
-  styleUrl: './dialog-add-user.component.scss'
+  styleUrl: '../share/dialog.component.scss'
 })
 export class DialogAddUserComponent implements OnInit {
   fb = inject(FormBuilder);
