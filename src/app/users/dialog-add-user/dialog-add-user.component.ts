@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { UserService } from '../user.service';
 import { User } from '../../models/user';
+import { ToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'app-dialog-add-user',
@@ -19,6 +20,7 @@ import { User } from '../../models/user';
 export class DialogAddUserComponent implements OnInit {
   fb = inject(FormBuilder);
   userService = inject(UserService);
+  toastService = inject(ToastService);
 
   userForm: FormGroup = this.fb.group({});
 
@@ -40,6 +42,8 @@ export class DialogAddUserComponent implements OnInit {
         next: user => {
           if(user) {
             this.userService.userAddedSubject.next(user);
+            this.toastService.showSuccess('User added successfully.');
+            this.userForm.reset();
           }
         } 
       });

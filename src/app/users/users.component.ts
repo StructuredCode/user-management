@@ -11,6 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { Subscription } from 'rxjs'
 import { DialogAddAbsenceComponent } from './dialog-add-abscense/dialog-add-absence.component';
 import { ComponentType } from '@angular/cdk/portal';
+import { ToastService } from '../services/toast.service';
 
 @Component({
   selector: 'app-users',
@@ -22,6 +23,7 @@ import { ComponentType } from '@angular/cdk/portal';
 export class UsersComponent implements OnInit, OnDestroy {
   userService = inject(UserService);
   dialog = inject(MatDialog);
+  toastService = inject(ToastService);
 
   subscriptions = new Subscription();
   dialogComponent = {DialogAddUserComponent}
@@ -39,6 +41,7 @@ export class UsersComponent implements OnInit, OnDestroy {
     this.subscriptions.add(
       this.userService.userAddedSubject.subscribe(newUser => {
         this.dataSource.data.push(newUser);
+        this.toastService.showSuccess('User added successfully.');
       })
     );
   }

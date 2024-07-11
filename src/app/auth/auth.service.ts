@@ -3,12 +3,14 @@ import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Config } from '../../../config';
 import { JwtHelperService } from '@auth0/angular-jwt'
+import { ToastService } from '../services/toast.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private readonly http = inject(HttpClient);
+  private readonly toastService = inject(ToastService);
   public jwtHelper: JwtHelperService = new JwtHelperService();
 
   constructor() { }
@@ -53,9 +55,11 @@ export class AuthService {
     this.requestToken(userId, userSecret).subscribe({
       next: data => {
         // Token is valid only if it includes required data.
-        if (data.access_token && data.expires_in)
+        if (data.access_token && data.expires_in) {
           // Store the access token for a live time of local storage (infinite).
-          this.storeTokens(data.access_token, data.expires_in)
+          this.storeTokens(data.access_token, data.expires_in);
+          this.toastService.showSuccess('Token succesfully issued and saved.');
+        }
       }
     })
   }
