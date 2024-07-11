@@ -2,7 +2,7 @@
   <mat-label>Filter</mat-label>
   <input matInput (keyup)="applyFilter($event)" placeholder="FirstName / LastName" #input />
 </mat-form-field>
-<button mat-button-stroked (click)="openDialog()">Add user</button>
+<button class="add-user-button" mat-flat-button (click)="openDialog()">Add user</button>
 <div class="mat-elevation-z8">
   <table mat-table [dataSource]="dataSource">
     <ng-container matColumnDef="Action">
