@@ -4,12 +4,14 @@ import { Observable } from 'rxjs';
 import { Config } from '../../../config';
 import { JwtHelperService } from '@auth0/angular-jwt'
 import { ToastService } from '../services/toast.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private readonly http = inject(HttpClient);
+  private readonly router = inject(Router);
   private readonly toastService = inject(ToastService);
   public jwtHelper: JwtHelperService = new JwtHelperService();
 
@@ -59,6 +61,7 @@ export class AuthService {
           // Store the access token for a live time of local storage (infinite).
           this.storeTokens(data.access_token, data.expires_in);
           this.toastService.showSuccess('Token succesfully issued and saved.');
+          this.router.navigate(['/users']);
         }
       }
     })
