@@ -1,7 +1,10 @@
-<nav>
-  <a routerLink="/settings">Settings</a>  |
-  <a routerLink="/users">Users</a>  |
-  <a routerLink="/absences">Absences</a>
-</nav>
-
-<router-outlet />
+<div class="sidebar">
+  <mat-nav-list>
+    <mat-list-item routerLink="/settings" routerLinkActive="active-link">Settings</mat-list-item>
+    <mat-list-item routerLink="/users" routerLinkActive="active-link">Users</mat-list-item>
+    <mat-list-item routerLink="/absences" routerLinkActive="active-link">Absences</mat-list-item>
+  </mat-nav-list>
+</div>
+<div class="content">
+  <router-outlet />
+</div>
