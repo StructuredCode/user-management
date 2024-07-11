@@ -23,7 +23,6 @@ export class UsersComponent implements OnInit, OnDestroy {
   userService = inject(UserService);
   dialog = inject(MatDialog);
 
-  private userList: User[] = [];
   subscriptions = new Subscription();
   dialogComponent = {DialogAddUserComponent}
   dataSource: MatTableDataSource<User> = new MatTableDataSource();
@@ -33,7 +32,7 @@ export class UsersComponent implements OnInit, OnDestroy {
     // Get users from server.
     this.userService.getUsers().subscribe(u => {
       this.dataSource = new MatTableDataSource(u);
-      this.userList = u;
+      this.userService.users.set(u);
     });
 
     // Get newlly added user and push him to the table so fetch from the server can be avoided.

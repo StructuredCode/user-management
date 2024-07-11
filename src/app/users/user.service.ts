@@ -14,6 +14,9 @@ export class UserService {
   /** User data-subject. Flow of succesfully newly added users. */
   userAddedSubject = new Subject<User>();
   
+  /** Stores all users loaded from API. */
+  users = signal<User[]>([]);
+  
   /**
    * Get all users from database.
    */

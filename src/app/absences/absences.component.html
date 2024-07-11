@@ -1,1 +1,41 @@
-<p>absences works!</p>
+<form [formGroup]="dateForm" (ngSubmit)="onSubmit()">
+  <mat-form-field [formGroup]="dateForm" appearance="fill">
+    <mat-label>Choose a date</mat-label>
+    <input matInput formControlName="dateFrom" [matDatepicker]="picker" />
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <button mat-flat-button type="submit" [disabled]="!dateForm.valid">Submit</button>
+</form>
+
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource">
+    <ng-container matColumnDef="FirstName">
+      <mat-header-cell *matHeaderCellDef> FirstName </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element.FirstName }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="LastName">
+      <mat-header-cell *matHeaderCellDef> LastName </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element.LastName }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Email">
+      <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element.Email }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="AbsenceDefinitionName">
+      <mat-header-cell *matHeaderCellDef> AbsenceDefinition </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element.AbsenceDefinitionName }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Timestamp">
+      <mat-header-cell *matHeaderCellDef> TimeStamp </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element.Timestamp }} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  </table>
+</div>

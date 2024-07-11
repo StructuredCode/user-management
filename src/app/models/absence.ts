@@ -1,7 +1,8 @@
 export interface Absence {
     UserId: string,
     AbsenceDefinitionId: string,
-    TimeStamp: string,
+    Timestamp: string,
     PartialTimeFrom: string,
-    PartialTimeTo: string
+    PartialTimeTo: string,
+    AbsenceDefinitionName: string
 }

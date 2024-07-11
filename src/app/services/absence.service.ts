@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Config } from '../../../config';
 import { Observable } from 'rxjs';
@@ -23,5 +23,18 @@ export class AbsenceService {
    */
   addAbsence(absence: Absence): Observable<Absence> {
     return this.http.post<Absence>(Config.apiUrl + '/Absences', absence)
+  }
+
+  getAbsence(date: Date): Observable<Absence[]> {
+    // Calculate end date so API will return data for the whole day.
+    let dateTo = new Date();
+    dateTo.setDate(date.getDate() + 1)
+
+
+    let params = new HttpParams()
+      .set('dateFrom', date.toLocaleDateString())
+      .set('dateTo', dateTo.toLocaleDateString())
+
+    return this.http.get<Absence[]>(Config.apiUrl + '/Absences', { params });
   }
 }

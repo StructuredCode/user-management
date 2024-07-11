@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AbsencesComponent } from './absences.component';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('AbsencesComponent', () => {
   let component: AbsencesComponent;
@@ -8,7 +11,8 @@ describe('AbsencesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AbsencesComponent]
+      imports: [AbsencesComponent, NoopAnimationsModule],
+      providers: [provideHttpClient(), provideHttpClientTesting()]
     })
     .compileComponents();
 
