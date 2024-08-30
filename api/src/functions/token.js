@@ -1,6 +1,6 @@
 const { app, HttpResponse } = require("@azure/functions");
-const axios = require("axios");
-const qs = require("qs");
+// const axios = require("axios");
+// const qs = require("qs");
 
 /**
  * Spica api-token proxy.
@@ -10,32 +10,32 @@ app.http("token", {
   methods: ["POST"],
   authLevel: "anonymous",
   handler: async (request, context) => {
-    context.info("Token request received.");
+    // context.info("Token request received.");
 
-    const body = await request.json();
+    // const body = await request.json();
     let res;
 
-    try {
-      const response = await axios(
-        new TokenRequest(body.client_id, body.client_secret).getRequest()
-      );
+    // try {
+    //   const response = await axios(
+    //     new TokenRequest(body.client_id, body.client_secret).getRequest()
+    //   );
 
-      context.debug("response data: ", JSON.stringify(response.data));
+    //   context.debug("response data: ", JSON.stringify(response.data));
 
-      res = new HttpResponse({
-        status: response.status,
-        body: JSON.stringify(response.data),
-      });
-    } catch (error) {
-      context.error("Get token response error: ", error);
+    //   res = new HttpResponse({
+    //     status: response.status,
+    //     body: JSON.stringify(response.data),
+    //   });
+    // } catch (error) {
+    //   context.error("Get token response error: ", error);
 
-      res = new HttpResponse({
-        status: error.response ? error.response.status : 500,
-        body: error.response
-          ? JSON.stringify(error.response.data)
-          : { error: error.message },
-      });
-    }
+    //   res = new HttpResponse({
+    //     status: error.response ? error.response.status : 500,
+    //     body: error.response
+    //       ? JSON.stringify(error.response.data)
+    //       : { error: error.message },
+    //   });
+    // }
 
     return res;
   },
