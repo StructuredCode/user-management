@@ -31,9 +31,10 @@ export class AuthService {
    *
    * @param userId - The user ID or client ID for authentication.
    * @param userSecret - The user secret or client secret for authentication.
+   * @param useProxy - use express proxy to avoid CORS.
    * @returns An Observable that, when subscribed to, will send a POST request to retrieve the token.
    */
-  private requestToken(userId: string, userSecret: string): Observable<any> {
+  private requestToken(userId: string, userSecret: string, useProxy: boolean): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded',
       'Referrer-Policy': 'no-referrer'
@@ -45,7 +46,15 @@ export class AuthService {
       .set('client_secret', userSecret)
       .set('scope', 'api');
 
-    return this.http.post(Config.tokenUrl, body.toString(), { headers });
+    const bodyJson = {
+      grant_type: 'client_credentials',
+      client_id: userId,
+      client_secret: userSecret,
+      scope: 'api'
+    }
+
+
+    return this.http.post(useProxy ? Config.tokenProxyUrl : Config.tokenUrl, useProxy ? bodyJson : body.toString(), useProxy ? {} : { headers });
   }
 
   /**
@@ -53,8 +62,8 @@ export class AuthService {
    * @param userId - The user ID or client ID for authentication.
    * @param userSecret - The user secret or client secret for authentication.
    */
-  handleTokenRequest(userId: string, userSecret: string) {
-    this.requestToken(userId, userSecret).subscribe({
+  handleTokenRequest(userId: string, userSecret: string, useProxy?: boolean) {
+    this.requestToken(userId, userSecret, useProxy ?? false).subscribe({
       next: data => {
         // Token is valid only if it includes required data.
         if (data.access_token && data.expires_in) {

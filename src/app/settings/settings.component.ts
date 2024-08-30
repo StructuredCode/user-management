@@ -6,16 +6,18 @@ import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { AuthService } from '../auth/auth.service';
+import { MatSlideToggle } from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'app-settings',
   standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, MatIconModule, FormsModule, ReactiveFormsModule, MatCardModule, MatButtonModule],
+  imports: [MatFormFieldModule, MatInputModule, MatIconModule, FormsModule, ReactiveFormsModule, MatCardModule, MatButtonModule, MatSlideToggle],
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.scss'
 })
 export class SettingsComponent {
   hide = signal(true);
+  useProxy = signal(true);
   private auth = inject(AuthService);
 
   authForm: FormGroup = new FormGroup({
@@ -28,7 +30,7 @@ export class SettingsComponent {
       const formVal = this.authForm.value;
       
       // Requests a token from the server and saves it to local storage.
-      this.auth.handleTokenRequest(formVal.clientId, formVal.clientSecret);
+      this.auth.handleTokenRequest(formVal.clientId, formVal.clientSecret, this.useProxy());
     }
   }
 

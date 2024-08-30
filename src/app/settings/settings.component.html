@@ -24,6 +24,9 @@
           <mat-icon>{{ hide() ? "visibility_off" : "visibility" }}</mat-icon>
         </button>
       </mat-form-field>
+      <p class="proxy-toggle">
+        <mat-slide-toggle [checked]="useProxy()" (change)="useProxy.set(!useProxy())">Use proxy</mat-slide-toggle>
+      </p>
       <p>
         <button
           mat-raised-button
