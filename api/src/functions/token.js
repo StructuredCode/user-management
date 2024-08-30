@@ -1,6 +1,6 @@
 const { app, HttpResponse } = require("@azure/functions");
-// const axios = require("axios");
-// const qs = require("qs");
+const axios = require("axios");
+const qs = require("qs");
 
 /**
  * Spica api-token proxy.
