@@ -16,28 +16,28 @@ app.http("token", {
     let res;
 
     try {
-      // const response = await axios(
-      //   new TokenRequest(body.client_id, body.client_secret).getRequest()
-      // );
+      const response = await axios(
+        new TokenRequest(body.client_id, body.client_secret).getRequest()
+      );
 
-      // context.debug("response data: ", JSON.stringify(response.data));
+      context.debug("response data: ", JSON.stringify(response.data));
 
-      // res = new HttpResponse({
-      //   status: response.status,
-      //   body: JSON.stringify(response.data),
-      // });
+      res = new HttpResponse({
+        status: response.status,
+        body: JSON.stringify(response.data),
+      });
     } catch (error) {
-      // context.error("Get token response error: ", error);
+      context.error("Get token response error: ", error);
 
-      // res = new HttpResponse({
-      //   status: error.response ? error.response.status : 500,
-      //   body: error.response
-      //     ? JSON.stringify(error.response.data)
-      //     : { error: error.message },
-      // });
+      res = new HttpResponse({
+        status: error.response ? error.response.status : 500,
+        body: error.response
+          ? JSON.stringify(error.response.data)
+          : { error: error.message },
+      });
     }
 
-    return new HttpResponse({ status: 200, body: 'OK reponse'});
+    return new HttpResponse({ status: 200, body: "OK reponse" });
     return res;
   },
 });
@@ -52,13 +52,12 @@ class TokenRequest {
   }
 
   #getBody() {
-    return '';
-    // return qs.stringify({
-    //   grant_type: "client_credentials",
-    //   client_id: this.client_id,
-    //   client_secret: this.client_secret,
-    //   scope: "api",
-    // });
+    return qs.stringify({
+      grant_type: "client_credentials",
+      client_id: this.client_id,
+      client_secret: this.client_secret,
+      scope: "api",
+    });
   }
 
   getRequest() {
