@@ -52,12 +52,13 @@ class TokenRequest {
   }
 
   #getBody() {
-    return qs.stringify({
-      grant_type: "client_credentials",
-      client_id: this.client_id,
-      client_secret: this.client_secret,
-      scope: "api",
-    });
+    return '';
+    // return qs.stringify({
+    //   grant_type: "client_credentials",
+    //   client_id: this.client_id,
+    //   client_secret: this.client_secret,
+    //   scope: "api",
+    // });
   }
 
   getRequest() {
