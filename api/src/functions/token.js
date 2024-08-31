@@ -36,8 +36,6 @@ app.http("token", {
           : { error: error.message },
       });
     }
-
-    return new HttpResponse({ status: 200, body: "OK reponse" });
     return res;
   },
 });
